@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preload" as="image" href="images/sathish.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="images/sathish.jpg" fetchpriority="high">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%23ea580c%27/%3E%3Ctext x=%2750%27 y=%2765%27 font-size=%2750%27 font-family=%27Arial%27 font-weight=%27bold%27 text-anchor=%27middle%27 fill=%27white%27%3ESK%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
@@ -412,6 +412,110 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        /* Password Lock Styles */
+        #authLockSection {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+            padding: 8px 4px;
+        }
+
+        .lock-icon-wrap {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(var(--c-r), var(--c-g), var(--c-b), 0.1);
+            color: var(--accent-primary);
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+            margin: 0 auto;
+        }
+
+        .auth-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .auth-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: -6px;
+        }
+
+        .auth-pass-input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+            letter-spacing: 0.18em;
+            text-align: center;
+        }
+
+        .auth-pass-input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(var(--c-r), var(--c-g), var(--c-b), 0.2);
+        }
+
+        .auth-unlock-btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            background: var(--gradient-brand);
+            color: #ffffff;
+            border: none;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .auth-unlock-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(var(--c-r), var(--c-g), var(--c-b), 0.3);
+        }
+
+        .auth-error-msg {
+            color: #ef4444;
+            font-size: 12px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .shake {
+            animation: shakeErr 0.35s ease-in-out;
+        }
+
+        @keyframes shakeErr {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        #unlockedRgbSection {
+            display: none;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .btn-relock {
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            cursor: pointer;
+            font-size: 13px;
+            padding: 4px;
+        }
+
+        .btn-relock:hover {
+            color: #ef4444;
         }
 
         .popover-header {
@@ -994,15 +1098,14 @@
             height: 100%;
             object-fit: cover;
             object-position: center top;
-			border-radius: 20px;
+            border-radius: 20px;
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-			
         }
-	
-		.about-photo-wrap:hover img{
-		transform: scale(1.20);
-		}
-		
+    
+        .about-photo-wrap:hover img {
+            transform: scale(1.20);
+        }
+        
         .about-status-tag {
             position: absolute;
             bottom: 16px;
@@ -2025,60 +2128,82 @@
             </div>
 
             <div class="header-actions">
-                <a href="#" class="res-btn" id="resBtn"><i class="fas fa-download"></i> Resume</a>
+                <a href="SATHISHKUMAR P.pdf" download class="res-btn" id="resBtn"><i class="fas fa-download"></i> Resume</a>
 
                 <!-- RGB Color Scale Control Button -->
                 <button class="color-tune-btn" id="colorTuneBtn" aria-label="RGB Color Scale" title="Customize Accent RGB">
                     <i class="fas fa-sliders"></i>
                 </button>
 
-                <!-- RGB Customizer Popover Window -->
+                <!-- Password Protected Color Popover -->
                 <div class="color-palette-popover" id="colorPalettePopover">
-                    <div class="popover-header">
-                        <span>RGB Color Mixer</span>
-                        <i class="fas fa-palette" style="color:var(--accent-primary)"></i>
+                    
+                    <!-- 1. Password Lock View -->
+                    <div id="authLockSection">
+                        <div class="lock-icon-wrap">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="auth-title">RGB Access Protected</div>
+                        <div class="auth-subtitle">Enter PIN to customize theme colors.</div>
+                        <div class="auth-input-group">
+                            <input type="password" id="authPinInput" class="auth-pass-input" placeholder="••••" maxlength="8">
+                        </div>
+                        <button type="button" id="authSubmitBtn" class="auth-unlock-btn">
+                            <i class="fas fa-key"></i> Unlock Mixer
+                        </button>
+                        <div class="auth-error-msg" id="authErrorMsg">Incorrect PIN. Try again!</div>
                     </div>
 
-                    <!-- Live Preview & Hex Display -->
-                    <div class="rgb-preview-box">
-                        <div class="rgb-color-badge" id="rgbColorBadge" title="Click to pick custom color">
-                            <input type="color" class="native-color-input" id="nativeColorPicker" value="#ea580c">
+                    <!-- 2. Unlocked Controls View -->
+                    <div id="unlockedRgbSection">
+                        <div class="popover-header">
+                            <span>RGB Color Mixer</span>
+                            <button type="button" class="btn-relock" id="relockBtn" title="Lock controls">
+                                <i class="fas fa-lock"></i> Lock
+                            </button>
                         </div>
-                        <div class="rgb-value-display">
-                            <span id="rgbLabelDisplay">rgb(234, 88, 12)</span>
-                            <span class="rgb-hex" id="hexLabelDisplay">#EA580C</span>
-                        </div>
-                    </div>
 
-                    <!-- RGB Slider Scales (0 to 255) -->
-                    <div class="rgb-controls-grid">
-                        <div class="rgb-slider-row">
-                            <span class="rgb-tag tag-r">R</span>
-                            <input type="range" min="0" max="255" value="234" class="rgb-range" id="rangeR">
-                            <span class="rgb-num" id="valR">234</span>
+                        <!-- Live Preview & Hex Display -->
+                        <div class="rgb-preview-box">
+                            <div class="rgb-color-badge" id="rgbColorBadge" title="Click to pick custom color">
+                                <input type="color" class="native-color-input" id="nativeColorPicker" value="#ea580c">
+                            </div>
+                            <div class="rgb-value-display">
+                                <span id="rgbLabelDisplay">rgb(234, 88, 12)</span>
+                                <span class="rgb-hex" id="hexLabelDisplay">#EA580C</span>
+                            </div>
                         </div>
-                        <div class="rgb-slider-row">
-                            <span class="rgb-tag tag-g">G</span>
-                            <input type="range" min="0" max="255" value="88" class="rgb-range" id="rangeG">
-                            <span class="rgb-num" id="valG">88</span>
-                        </div>
-                        <div class="rgb-slider-row">
-                            <span class="rgb-tag tag-b">B</span>
-                            <input type="range" min="0" max="255" value="12" class="rgb-range" id="rangeB">
-                            <span class="rgb-num" id="valB">12</span>
-                        </div>
-                    </div>
 
-                    <!-- Quick VIBGYOR Presets -->
-                    <div class="swatches-title">VIBGYOR Presets</div>
-                    <div class="vibgyor-group">
-                        <button type="button" class="swatch-item" style="background: rgb(148, 0, 211)" data-r="148" data-g="0" data-b="211" title="Violet"></button>
-                        <button type="button" class="swatch-item" style="background: rgb(75, 0, 130)" data-r="75" data-g="0" data-b="130" title="Indigo"></button>
-                        <button type="button" class="swatch-item" style="background: rgb(37, 99, 235)" data-r="37" data-g="99" data-b="235" title="Blue"></button>
-                        <button type="button" class="swatch-item" style="background: rgb(22, 163, 74)" data-r="22" data-g="163" data-b="74" title="Green"></button>
-                        <button type="button" class="swatch-item" style="background: rgb(234, 179, 8)" data-r="234" data-g="179" data-b="8" title="Yellow"></button>
-                        <button type="button" class="swatch-item active" style="background: rgb(234, 88, 12)" data-r="234" data-g="88" data-b="12" title="Orange"></button>
-                        <button type="button" class="swatch-item" style="background: rgb(220, 38, 38)" data-r="220" data-g="38" data-b="38" title="Red"></button>
+                        <!-- RGB Slider Scales (0 to 255) -->
+                        <div class="rgb-controls-grid">
+                            <div class="rgb-slider-row">
+                                <span class="rgb-tag tag-r">R</span>
+                                <input type="range" min="0" max="255" value="234" class="rgb-range" id="rangeR">
+                                <span class="rgb-num" id="valR">234</span>
+                            </div>
+                            <div class="rgb-slider-row">
+                                <span class="rgb-tag tag-g">G</span>
+                                <input type="range" min="0" max="255" value="88" class="rgb-range" id="rangeG">
+                                <span class="rgb-num" id="valG">88</span>
+                            </div>
+                            <div class="rgb-slider-row">
+                                <span class="rgb-tag tag-b">B</span>
+                                <input type="range" min="0" max="255" value="12" class="rgb-range" id="rangeB">
+                                <span class="rgb-num" id="valB">12</span>
+                            </div>
+                        </div>
+
+                        <!-- Quick VIBGYOR Presets -->
+                        <div class="swatches-title">VIBGYOR Presets</div>
+                        <div class="vibgyor-group">
+                            <button type="button" class="swatch-item" style="background: rgb(148, 0, 211)" data-r="148" data-g="0" data-b="211" title="Violet"></button>
+                            <button type="button" class="swatch-item" style="background: rgb(75, 0, 130)" data-r="75" data-g="0" data-b="130" title="Indigo"></button>
+                            <button type="button" class="swatch-item" style="background: rgb(37, 99, 235)" data-r="37" data-g="99" data-b="235" title="Blue"></button>
+                            <button type="button" class="swatch-item" style="background: rgb(22, 163, 74)" data-r="22" data-g="163" data-b="74" title="Green"></button>
+                            <button type="button" class="swatch-item" style="background: rgb(234, 179, 8)" data-r="234" data-g="179" data-b="8" title="Yellow"></button>
+                            <button type="button" class="swatch-item active" style="background: rgb(234, 88, 12)" data-r="234" data-g="88" data-b="12" title="Orange"></button>
+                            <button type="button" class="swatch-item" style="background: rgb(220, 38, 38)" data-r="220" data-g="38" data-b="38" title="Red"></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2144,7 +2269,7 @@
             <div class="hero-glow-frame">
                 <div class="hero-frame-orbit"></div>
                 <div class="hero-avatar-box">
-                    <img src="images\sathish.jpg" alt="SathishKumar" width="720" height="871" fetchpriority="high"
+                    <img src="images/sathish.jpg" alt="SathishKumar" width="720" height="871" fetchpriority="high"
                         decoding="async">
                 </div>
                 <div class="hero-pill pill-1">
@@ -2301,17 +2426,17 @@
 
             <div class="project-toolbar">
                 <button class="filter-btn active" data-filter="all">All Projects</button>
-				<button class="filter-btn" data-filter="Android">Android</button>
-				<button class="filter-btn" data-filter="Java">Java</button>
+                <button class="filter-btn" data-filter="Android">Android</button>
+                <button class="filter-btn" data-filter="Java">Java</button>
                 <button class="filter-btn" data-filter="Security">Security</button>
-				<button class="filter-btn" data-filter="WebGame">WebGame</button>
-				<button class="filter-btn" data-filter="Python">Python</button>
+                <button class="filter-btn" data-filter="WebGame">WebGame</button>
+                <button class="filter-btn" data-filter="Python">Python</button>
             </div>
 
             <div class="proj-grid">
                 <div class="proj-card reveal" data-category="Android">
                     <div class="proj-img-wrap">
-                        <img src="images\Notepad.jpg" alt="Notepad Application preview" width="800" height="500" loading="lazy" decoding="async">
+                        <img src="images/Notepad.jpg" alt="Notepad Application preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">01</span>
                     </div>
                     <div class="proj-body">
@@ -2324,10 +2449,10 @@
                         </div>
                     </div>
                 </div>
-				
+                
                 <div class="proj-card reveal" data-category="Java">
                     <div class="proj-img-wrap">
-                        <img src="images\spring.jpg"" alt="Spring Boot NotepadApp" width="800" height="500" loading="lazy" decoding="async">
+                        <img src="images/spring.jpg" alt="Spring Boot NotepadApp" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">02</span>
                     </div>
                     <div class="proj-body">
@@ -2343,7 +2468,7 @@
 
                 <div class="proj-card reveal" data-category="Security">
                     <div class="proj-img-wrap">
-                        <img src="images\apt.jpg" alt="APT Detection preview" width="800" height="500" loading="lazy" decoding="async">
+                        <img src="images/apt.jpg" alt="APT Detection preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">03</span>
                     </div>
                     <div class="proj-body">
@@ -2359,7 +2484,7 @@
 
                 <div class="proj-card reveal" data-category="Python">
                     <div class="proj-img-wrap">
-                        <img src="images\fraud.jpg" alt="Online Fraud Detection preview" width="800" height="500" loading="lazy" decoding="async">
+                        <img src="images/fraud.jpg" alt="Online Fraud Detection preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">04</span>
                     </div>
                     <div class="proj-body">
@@ -2375,7 +2500,7 @@
 
                 <div class="proj-card reveal" data-category="Security">
                     <div class="proj-img-wrap">
-                        <img src="images\ip.jpg" alt="IP Blocker preview" width="800" height="500" loading="lazy" decoding="async">
+                        <img src="images/ip.jpg" alt="IP Blocker preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">05</span>
                     </div>
                     <div class="proj-body">
@@ -2391,7 +2516,7 @@
 
                 <div class="proj-card reveal" data-category="Security">
                     <div class="proj-img-wrap">
-                        <img src="images\usb.jpg" alt="USB Malware Scanner preview" width="800" height="500" loading="lazy" decoding="async">
+                        <img src="images/usb.jpg" alt="USB Malware Scanner preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">06</span>
                     </div>
                     <div class="proj-body">
@@ -2407,7 +2532,7 @@
 
                 <div class="proj-card reveal" data-category="Security">
                     <div class="proj-img-wrap">
-                        <img src="images\keylogger.jpg" alt="Anti-Keylogger Detection preview" width="800" height="500" loading="lazy" decoding="async">
+                        <img src="images/keylogger.jpg" alt="Anti-Keylogger Detection preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">07</span>
                     </div>
                     <div class="proj-body">
@@ -2420,10 +2545,10 @@
                         </div>
                     </div>
                 </div>
-				
+                
                 <div class="proj-card reveal" data-category="WebGame">
                     <div class="proj-img-wrap">
-                        <img src="images\game.jpg" alt="Typing Games preview" width="800" height="500" loading="lazy" decoding="async">
+                        <img src="images/game.jpg" alt="Typing Games preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">08</span>
                     </div>
                     <div class="proj-body">
@@ -2436,10 +2561,10 @@
                         </div>
                     </div>
                 </div>
-				
+                
                 <div class="proj-card reveal" data-category="WebGame">
                     <div class="proj-img-wrap">
-                        <img src="images\sanke.jpg" alt="Snake Game" width="800" height="500" loading="lazy" decoding="async">
+                        <img src="images/sanke.jpg" alt="Snake Game" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">09</span>
                     </div>
                     <div class="proj-body">
@@ -2478,7 +2603,7 @@
                         <div class="tl-tags"><span class="tl-tag">Networking</span><span class="tl-tag">Hardware</span><span class="tl-tag">Operating Systems</span></div>
                     </div>
                 </div>
-				    <div class="tl-item reveal">
+                <div class="tl-item reveal">
                     <div class="tl-dot"></div>
                     <div class="tl-period">Earlier experience</div>
                     <div class="tl-card">
@@ -2754,10 +2879,19 @@
         }
 
         /* ═══════════════════════════════════════
-           2. DYNAMIC RGB COLOR SCALE SYSTEM
+           2. DYNAMIC RGB COLOR SCALE SYSTEM & PIN AUTH
         ═══════════════════════════════════════ */
+        const RGB_AUTH_PIN = '2003'; // Administrator PIN
+
         const colorTuneBtn = document.getElementById('colorTuneBtn');
         const colorPalettePopover = document.getElementById('colorPalettePopover');
+        const authLockSection = document.getElementById('authLockSection');
+        const unlockedRgbSection = document.getElementById('unlockedRgbSection');
+        const authPinInput = document.getElementById('authPinInput');
+        const authSubmitBtn = document.getElementById('authSubmitBtn');
+        const authErrorMsg = document.getElementById('authErrorMsg');
+        const relockBtn = document.getElementById('relockBtn');
+
         const rangeR = document.getElementById('rangeR');
         const rangeG = document.getElementById('rangeG');
         const rangeB = document.getElementById('rangeB');
@@ -2769,6 +2903,69 @@
         const nativeColorPicker = document.getElementById('nativeColorPicker');
         const rgbColorBadge = document.getElementById('rgbColorBadge');
         const swatches = document.querySelectorAll('.swatch-item');
+
+        function updateLockUI() {
+            const isUnlocked = sessionStorage.getItem('rgb_authorized') === 'true';
+            if (isUnlocked) {
+                authLockSection.style.display = 'none';
+                unlockedRgbSection.style.display = 'flex';
+            } else {
+                authLockSection.style.display = 'flex';
+                unlockedRgbSection.style.display = 'none';
+                if (authPinInput) authPinInput.value = '';
+                if (authErrorMsg) authErrorMsg.style.display = 'none';
+            }
+        }
+
+        // Toggle popover menu
+        if (colorTuneBtn && colorPalettePopover) {
+            colorTuneBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                colorPalettePopover.classList.toggle('active');
+                updateLockUI();
+                if (sessionStorage.getItem('rgb_authorized') !== 'true' && authPinInput) {
+                    setTimeout(() => authPinInput.focus(), 150);
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!colorPalettePopover.contains(e.target) && !colorTuneBtn.contains(e.target)) {
+                    colorPalettePopover.classList.remove('active');
+                }
+            });
+        }
+
+        // Verify PIN
+        function verifyPin() {
+            if (!authPinInput) return;
+            const entered = authPinInput.value.trim();
+            if (entered === RGB_AUTH_PIN) {
+                sessionStorage.setItem('rgb_authorized', 'true');
+                if (authErrorMsg) authErrorMsg.style.display = 'none';
+                updateLockUI();
+            } else {
+                if (authErrorMsg) authErrorMsg.style.display = 'block';
+                if (authLockSection) {
+                    authLockSection.classList.add('shake');
+                    setTimeout(() => authLockSection.classList.remove('shake'), 400);
+                }
+            }
+        }
+
+        if (authSubmitBtn) authSubmitBtn.addEventListener('click', verifyPin);
+        if (authPinInput) {
+            authPinInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') verifyPin();
+            });
+        }
+
+        // Relock
+        if (relockBtn) {
+            relockBtn.addEventListener('click', () => {
+                sessionStorage.removeItem('rgb_authorized');
+                updateLockUI();
+            });
+        }
 
         function componentToHex(c) {
             const hex = parseInt(c, 10).toString(16);
@@ -2818,20 +3015,6 @@
             if (save) {
                 try { localStorage.setItem('portfolio-accent-rgb', JSON.stringify({ r, g, b })); } catch (err) { /* storage unavailable */ }
             }
-        }
-
-        // Toggle popover menu
-        if (colorTuneBtn && colorPalettePopover) {
-            colorTuneBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                colorPalettePopover.classList.toggle('active');
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!colorPalettePopover.contains(e.target) && !colorTuneBtn.contains(e.target)) {
-                    colorPalettePopover.classList.remove('active');
-                }
-            });
         }
 
         // Sliders Listeners
@@ -3018,7 +3201,7 @@
             resBtn.addEventListener('click', e => {
                 e.preventDefault();
                 const a = document.createElement('a');
-                a.href = 'images/SathishKumar.pdf'; a.download = 'SathishKumar.pdf';
+                a.href = 'SATHISHKUMAR P.pdf'; a.download = 'SATHISHKUMAR P.pdf';
                 document.body.appendChild(a); a.click(); document.body.removeChild(a);
             });
         }
