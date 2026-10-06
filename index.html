@@ -19,7 +19,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preload" as="image" href="./Sathish.png" fetchpriority="high">
+    <link rel="preload" as="image" href="images/sathish.webp" fetchpriority="high">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%23ea580c%27/%3E%3Ctext x=%2750%27 y=%2765%27 font-size=%2750%27 font-family=%27Arial%27 font-weight=%27bold%27 text-anchor=%27middle%27 fill=%27white%27%3ESK%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
@@ -54,8 +55,8 @@
             --bg-input: #f1f5f9;
 
             --accent-primary: rgb(var(--c-r), var(--c-g), var(--c-b));
-            --accent-secondary: rgb(calc(var(--c-r) + 15), calc(var(--c-g) + 25), calc(var(--c-b) + 10));
-            --accent-tertiary: rgb(calc(var(--c-r) - 20), calc(var(--c-g) - 15), calc(var(--c-b) - 5));
+            --accent-secondary: rgb(min(255, calc(var(--c-r) + 15)), min(255, calc(var(--c-g) + 25)), min(255, calc(var(--c-b) + 10)));
+            --accent-tertiary: rgb(max(0, calc(var(--c-r) - 20)), max(0, calc(var(--c-g) - 15)), max(0, calc(var(--c-b) - 5)));
             --accent-pink: #f43f5e;
 
             --gradient-brand: linear-gradient(135deg, rgb(var(--c-r), var(--c-g), var(--c-b)) 0%, rgba(var(--c-r), var(--c-g), var(--c-b), 0.85) 100%);
@@ -170,8 +171,8 @@
         }
 
         body.cursor-hover #cur {
-            width: 14px;
-            height: 14px;
+            width: 10px;
+            height: 10px;
             background: #ffffff;
             box-shadow: 0 0 16px #ffffff;
         }
@@ -245,6 +246,7 @@
             padding: 18px 6%;
             background: var(--hdr-bg);
             border-bottom: 1px solid var(--border-subtle);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
             backdrop-filter: blur(20px) saturate(160%);
             transition: padding 0.3s ease, background 0.3s ease, border-color 0.3s ease;
         }
@@ -624,6 +626,7 @@
         .hero-name .title-gradient {
             background: var(--gradient-brand);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
         }
@@ -746,6 +749,7 @@
             font-weight: 800;
             background: var(--gradient-brand);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1;
         }
@@ -837,7 +841,7 @@
         }
 
         .hero-avatar-box:hover img {
-            transform: scale(1.05);
+            transform: scale(1.35);
         }
 
         .hero-pill {
@@ -939,6 +943,7 @@
         .sec-title span {
             background: var(--gradient-brand);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -984,14 +989,20 @@
             border: 1px solid var(--border-subtle);
             box-shadow: var(--shadow-sm);
         }
-
         .about-photo-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center top;
+			border-radius: 20px;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+			
         }
-
+	
+		.about-photo-wrap:hover img{
+		transform: scale(1.20);
+		}
+		
         .about-status-tag {
             position: absolute;
             bottom: 16px;
@@ -1111,7 +1122,7 @@
         .sk-card:hover .sk-icon {
             background: var(--accent-primary);
             color: #fff;
-            transform: scale(1.08);
+            transform: scale(1.48);
         }
 
         .sk-card h3 {
@@ -1225,7 +1236,7 @@
         }
 
         .proj-card:hover .proj-img-wrap img {
-            transform: scale(1.04);
+            transform: scale(1.34);
         }
 
         .proj-num {
@@ -1870,6 +1881,9 @@
         @media(max-width: 768px) {
             header {
                 padding: 14px 6%;
+                -webkit-backdrop-filter: none;
+                backdrop-filter: none;
+                background: #ffffff;
             }
 
             .nav-wrap {
@@ -2013,12 +2027,12 @@
             <div class="header-actions">
                 <a href="#" class="res-btn" id="resBtn"><i class="fas fa-download"></i> Resume</a>
 
-                <!-- RGB Color Scale Control Button[cite: 1] -->
+                <!-- RGB Color Scale Control Button -->
                 <button class="color-tune-btn" id="colorTuneBtn" aria-label="RGB Color Scale" title="Customize Accent RGB">
                     <i class="fas fa-sliders"></i>
                 </button>
 
-                <!-- RGB Customizer Popover Window[cite: 1] -->
+                <!-- RGB Customizer Popover Window -->
                 <div class="color-palette-popover" id="colorPalettePopover">
                     <div class="popover-header">
                         <span>RGB Color Mixer</span>
@@ -2036,7 +2050,7 @@
                         </div>
                     </div>
 
-                    <!-- RGB Slider Scales (0 to 255)[cite: 1] -->
+                    <!-- RGB Slider Scales (0 to 255) -->
                     <div class="rgb-controls-grid">
                         <div class="rgb-slider-row">
                             <span class="rgb-tag tag-r">R</span>
@@ -2078,7 +2092,7 @@
         <div class="hero-left">
             <div class="hero-eyebrow">
                 <span class="eyebrow-dot"></span>
-                <span>Java Development &bull; Systems &bull; Cybersecurity</span>
+                <span>Java Development &bull; Systems Design &bull; Cyber Security</span>
             </div>
             <h1 class="hero-name">
                 <span class="title-plain">Sathish </span><span class="title-gradient">Kumar</span>
@@ -2109,7 +2123,7 @@
                 </div>
                 <div class="hstat-divider"></div>
                 <div class="hstat-item">
-                    <span class="hstat-n" data-target="3">0</span>
+                    <span class="hstat-n" data-target="2">0</span>
                     <span class="hstat-l">Years Exp</span>
                 </div>
             </div>
@@ -2130,12 +2144,12 @@
             <div class="hero-glow-frame">
                 <div class="hero-frame-orbit"></div>
                 <div class="hero-avatar-box">
-                    <img src="./Sathish.png" alt="SathishKumar" width="360" height="440" fetchpriority="high"
+                    <img src="images\sathish.jpg" alt="SathishKumar" width="720" height="871" fetchpriority="high"
                         decoding="async">
                 </div>
                 <div class="hero-pill pill-1">
                     <div class="pill-icon"><i class="fas fa-code"></i></div>
-                    <span>Java Engineer</span>
+                    <span>Java Developer</span>
                 </div>
                 <div class="hero-pill pill-2">
                     <div class="pill-icon" style="background:var(--accent-secondary)"><i
@@ -2151,16 +2165,16 @@
         <div class="sec-inner">
             <div class="sec-header">
                 <div class="sec-badge">About Me</div>
-                <h2 class="sec-title">Passionate Engineer & <span>Problem Solver</span></h2>
+                <h2 class="sec-title">Passionate Programmer & <span>Problem Solver</span></h2>
                 <p class="sec-subtitle">Crafting secure, efficient code with technical rigor and creative ingenuity.</p>
             </div>
 
             <div class="about-grid reveal">
                 <div class="about-photo-wrap">
-                    <img src="./Sathish1.png" alt="SathishKumar portrait" width="360" height="400" loading="lazy"
+                    <img src="images/sathish.jpg" alt="SathishKumar portrait" width="720" height="871" loading="lazy"
                         decoding="async">
                     <div class="about-status-tag">
-                        <i class="fas fa-circle-check"></i> Available for Opportunities
+                        <i class="fas fa-circle-check"></i><a href="#contact">Ready to connect</a> 
                     </div>
                 </div>
                 <div class="about-content">
@@ -2189,7 +2203,7 @@
                         </div>
                         <div class="info-card">
                             <span class="lbl">Status</span>
-                            <span class="val" style="color:var(--accent-primary)">● Open for Roles</span>
+                            <span class="val" style="color:var(--accent-primary)">● System Administrator</span>
                         </div>
                     </div>
                 </div>
@@ -2287,36 +2301,39 @@
 
             <div class="project-toolbar">
                 <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="security">Security</button>
-                <button class="filter-btn" data-filter="java">Java & Web</button>
+				<button class="filter-btn" data-filter="Android">Android</button>
+				<button class="filter-btn" data-filter="Java">Java</button>
+                <button class="filter-btn" data-filter="Security">Security</button>
+				<button class="filter-btn" data-filter="WebGame">WebGame</button>
+				<button class="filter-btn" data-filter="Python">Python</button>
             </div>
 
             <div class="proj-grid">
-                <div class="proj-card reveal" data-category="java">
+                <div class="proj-card reveal" data-category="Android">
                     <div class="proj-img-wrap">
-                        <img src="./images/notepad.jpg" alt="Notepad Application preview" width="340" height="210" loading="lazy" decoding="async">
+                        <img src="images\Notepad.jpg" alt="Notepad Application preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">01</span>
                     </div>
                     <div class="proj-body">
                         <h3>Notepad Application</h3>
-                        <p>Secure note-taking application designed with Spring Boot APIs and Android multi-platform integration.</p>
-                        <div class="proj-tech"><span>Java</span><span>Spring Boot</span><span>Security</span></div>
+                        <p>Secure note-taking application designed with Java APIs and Android multi-platform integration.</p>
+                        <div class="proj-tech"><span>Java</span><span>Spring Boot</span><span>Android</span></div>
                         <div class="proj-footer">
                             <a href="https://github.com/MrsathishKumar" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
                             <span class="proj-live">Active</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="proj-card reveal" data-category="java">
+				
+                <div class="proj-card reveal" data-category="Java">
                     <div class="proj-img-wrap">
-                        <img src="./images/typing.jpg" alt="Typing Games preview" width="340" height="210" loading="lazy" decoding="async">
+                        <img src="images\spring.jpg"" alt="Spring Boot NotepadApp" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">02</span>
                     </div>
                     <div class="proj-body">
-                        <h3>Typing & Focus Game</h3>
-                        <p>Interactive web application focused on speed typing metrics, UI responsiveness, and micro-interactions.</p>
-                        <div class="proj-tech"><span>JavaScript</span><span>Web API</span><span>UI Design</span></div>
+                        <h3>Spring Notepad</h3>
+                        <p>Secure note-taking application designed with Spring Boot APIs and Android multi-platform integration.</p>
+                        <div class="proj-tech"><span>Java</span><span>Spring Boot</span><span>website</span></div>
                         <div class="proj-footer">
                             <a href="https://github.com/MrsathishKumar" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
                             <span class="proj-live">Active</span>
@@ -2324,13 +2341,13 @@
                     </div>
                 </div>
 
-                <div class="proj-card reveal" data-category="security">
+                <div class="proj-card reveal" data-category="Security">
                     <div class="proj-img-wrap">
-                        <img src="./images/apt.jpg" alt="APT Detection preview" width="340" height="210" loading="lazy" decoding="async">
+                        <img src="images\apt.jpg" alt="APT Detection preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">03</span>
                     </div>
                     <div class="proj-body">
-                        <h3>APT Detection — HoneyBot</h3>
+                        <h3>APT Detection Using HoneyBot</h3>
                         <p>Deception-based honeypot network capturing SSH, FTP and HTTP attacks, visualizing threats via ELK Stack.</p>
                         <div class="proj-tech"><span>Python</span><span>ELK Stack</span><span>Cybersecurity</span></div>
                         <div class="proj-footer">
@@ -2340,9 +2357,9 @@
                     </div>
                 </div>
 
-                <div class="proj-card reveal" data-category="security java">
+                <div class="proj-card reveal" data-category="Python">
                     <div class="proj-img-wrap">
-                        <img src="./images/fraud.jpg" alt="Online Fraud Detection preview" width="340" height="210" loading="lazy" decoding="async">
+                        <img src="images\fraud.jpg" alt="Online Fraud Detection preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">04</span>
                     </div>
                     <div class="proj-body">
@@ -2356,9 +2373,9 @@
                     </div>
                 </div>
 
-                <div class="proj-card reveal" data-category="security">
+                <div class="proj-card reveal" data-category="Security">
                     <div class="proj-img-wrap">
-                        <img src="./images/ipblocker.jpg" alt="IP Blocker preview" width="340" height="210" loading="lazy" decoding="async">
+                        <img src="images\ip.jpg" alt="IP Blocker preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">05</span>
                     </div>
                     <div class="proj-body">
@@ -2372,9 +2389,9 @@
                     </div>
                 </div>
 
-                <div class="proj-card reveal" data-category="security">
+                <div class="proj-card reveal" data-category="Security">
                     <div class="proj-img-wrap">
-                        <img src="./images/usb.jpg" alt="USB Malware Scanner preview" width="340" height="210" loading="lazy" decoding="async">
+                        <img src="images\usb.jpg" alt="USB Malware Scanner preview" width="800" height="500" loading="lazy" decoding="async">
                         <span class="proj-num">06</span>
                     </div>
                     <div class="proj-body">
@@ -2384,6 +2401,54 @@
                         <div class="proj-footer">
                             <a href="https://github.com/MrsathishKumar" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
                             <span class="proj-live">Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card reveal" data-category="Security">
+                    <div class="proj-img-wrap">
+                        <img src="images\keylogger.jpg" alt="Anti-Keylogger Detection preview" width="800" height="500" loading="lazy" decoding="async">
+                        <span class="proj-num">07</span>
+                    </div>
+                    <div class="proj-body">
+                        <h3>Anti-Keylogger Detection System</h3>
+                        <p>Windows security platform pairing a keystroke-capture research module with an anti-keylogger module that detects and mitigates keylogging threats.</p>
+                        <div class="proj-tech"><span>Windows</span><span>Detection</span><span>Cybersecurity</span></div>
+                        <div class="proj-footer">
+                            <a href="https://github.com/MrsathishKumar" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+                            <span class="proj-live">Active</span>
+                        </div>
+                    </div>
+                </div>
+				
+                <div class="proj-card reveal" data-category="WebGame">
+                    <div class="proj-img-wrap">
+                        <img src="images\game.jpg" alt="Typing Games preview" width="800" height="500" loading="lazy" decoding="async">
+                        <span class="proj-num">08</span>
+                    </div>
+                    <div class="proj-body">
+                        <h3>Typing Game</h3>
+                        <p>Interactive web application focused on speed typing metrics, UI responsiveness, and micro-interactions.</p>
+                        <div class="proj-tech"><span>JavaScript</span><span>Web API</span><span>Game</span></div>
+                        <div class="proj-footer">
+                            <a href="https://github.com/MrsathishKumar" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+                            <span class="proj-live"><a href="https://github.com/MrsathishKumar" target="_blank" rel="noopener">Let's Play</a></span>
+                        </div>
+                    </div>
+                </div>
+				
+                <div class="proj-card reveal" data-category="WebGame">
+                    <div class="proj-img-wrap">
+                        <img src="images\sanke.jpg" alt="Snake Game" width="800" height="500" loading="lazy" decoding="async">
+                        <span class="proj-num">09</span>
+                    </div>
+                    <div class="proj-body">
+                        <h3>Snake Game</h3>
+                        <p>Interactive web application Fun with Snake, UI responsiveness, and micro-interactions.</p>
+                        <div class="proj-tech"><span>JavaScript</span><span>Web API</span><span>Game</span></div>
+                        <div class="proj-footer">
+                            <a href="https://github.com/MrsathishKumar" class="proj-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+                            <span class="proj-live"><a href="https://github.com/MrsathishKumar" target="_blank" rel="noopener">Let's Play</a></span>
                         </div>
                     </div>
                 </div>
@@ -2405,23 +2470,44 @@
 
                 <div class="tl-item reveal">
                     <div class="tl-dot"></div>
-                    <div class="tl-period">2026 — Present</div>
+                    <div class="tl-period">Apr 2026 — Present</div>
                     <div class="tl-card">
-                        <h3>Impower Solutions Private Limited</h3>
-                        <div class="tl-org">System Administrator</div>
-                        <p class="tl-desc">Managing enterprise hardware, OS deployments, networking configurations, and system troubleshooting while expanding hands-on IT infrastructure knowledge.</p>
-                        <div class="tl-tags"><span class="tl-tag">Networking</span><span class="tl-tag">Hardware</span><span class="tl-tag">macOS/Windows</span><span class="tl-tag">SysAdmin</span></div>
+                        <h3>System Administrator </h3>
+                        <div class="tl-org">Impower Solutions Pvt Ltd, Chennai</div>
+                        <p class="tl-desc">Administered systems and networks, handled hardware and operating-system support and troubleshooting.</p>
+                        <div class="tl-tags"><span class="tl-tag">Networking</span><span class="tl-tag">Hardware</span><span class="tl-tag">Operating Systems</span></div>
+                    </div>
+                </div>
+				    <div class="tl-item reveal">
+                    <div class="tl-dot"></div>
+                    <div class="tl-period">Earlier experience</div>
+                    <div class="tl-card">
+                        <h3>CCTV, GPS &amp; Laptop Service</h3>
+                        <div class="tl-org">Service Shop — Baskar Tech Security, Chennai</div>
+                        <p class="tl-desc">Installation, repair and servicing of CCTV, GPS devices and laptops.</p>
+                        <div class="tl-tags"><span class="tl-tag">CCTV</span><span class="tl-tag">GPS</span><span class="tl-tag">Hardware</span></div>
                     </div>
                 </div>
 
                 <div class="tl-item reveal">
                     <div class="tl-dot"></div>
-                    <div class="tl-period">2025</div>
+                    <div class="tl-period">Sep 2025 — Nov 2025</div>
                     <div class="tl-card">
-                        <h3>Junior Cybersecurity Analyst & Trainee</h3>
-                        <div class="tl-org">Independent Security Projects</div>
-                        <p class="tl-desc">Focused on vulnerability assessments, pen-testing exercises, and crafting open-source cybersecurity utilities for threat detection.</p>
-                        <div class="tl-tags"><span class="tl-tag">VAPT</span><span class="tl-tag">Python</span><span class="tl-tag">Linux</span><span class="tl-tag">Security Tools</span></div>
+                        <h3>AXI Operator</h3>
+                        <div class="tl-org">Nokia Networks Pvt Ltd, Chennai (Manufacturing)</div>
+                        <p class="tl-desc">Industrial experience operating automated inspection equipment in a manufacturing environment.</p>
+                        <div class="tl-tags"><span class="tl-tag">Manufacturing</span><span class="tl-tag">Quality</span><span class="tl-tag">Process Discipline</span></div>
+                    </div>
+                </div>
+
+                <div class="tl-item reveal">
+                    <div class="tl-dot"></div>
+                    <div class="tl-period">Jan 2025 — Mar 2025</div>
+                    <div class="tl-card">
+                        <h3>Cyber Security Trainee - Internship</h3>
+                        <div class="tl-org">CSuite Tech Labs, Coimbatore</div>
+                        <p class="tl-desc">Hands-on training in vulnerability assessment, SIEM monitoring and security operations.</p>
+                        <div class="tl-tags"><span class="tl-tag">VAPT</span><span class="tl-tag">SIEM</span><span class="tl-tag">Kali Linux </span><span class="tl-tag">SysAdmin</span></div>
                     </div>
                 </div>
 
@@ -2429,10 +2515,10 @@
                     <div class="tl-dot"></div>
                     <div class="tl-period">2023 — 2025</div>
                     <div class="tl-card">
-                        <h3>Master of Science in Computer Science</h3>
-                        <div class="tl-org">Academic Excellence & Advanced Projects</div>
-                        <p class="tl-desc">Thesis on "Advanced Persistent Threat Detection Using HoneyBot" — monitoring attacker telemetry via SSH honeypots and real-time ELK dashboards.</p>
-                        <div class="tl-tags"><span class="tl-tag">HoneyBot</span><span class="tl-tag">ELK Stack</span><span class="tl-tag">Malware Analysis</span><span class="tl-tag">Kali Linux</span></div>
+                        <h3>MSc Computer Science</h3>
+                        <div class="tl-org">Alagappa University, Karaikudi &middot; CGPA 7.10</div>
+                        <p class="tl-desc">Advanced study in computer science; built the APT honeypot detection project with ELK dashboards.</p>
+                        <div class="tl-tags"><span class="tl-tag">HoneyBot</span><span class="tl-tag">ELK Stack</span><span class="tl-tag">Cybersecurity</span></div>
                     </div>
                 </div>
 
@@ -2440,17 +2526,17 @@
                     <div class="tl-dot"></div>
                     <div class="tl-period">2020 — 2023</div>
                     <div class="tl-card">
-                        <h3>Bachelor of Science in Computer Science</h3>
-                        <div class="tl-org">Foundational Degree</div>
-                        <p class="tl-desc">Built initial full-stack web software, including a Blood Bank Management System with structured database logic and backend management.</p>
-                        <div class="tl-tags"><span class="tl-tag">Java Basics</span><span class="tl-tag">PHP</span><span class="tl-tag">MySQL</span><span class="tl-tag">HTML/CSS</span></div>
+                        <h3>BSc Computer Science</h3>
+                        <div class="tl-org">Government Arts and Science College, Karur &middot; CGPA 7.30</div>
+                        <p class="tl-desc">Foundation in programming, data structures, databases and networking.</p>
+                        <div class="tl-tags"><span class="tl-tag">Java</span><span class="tl-tag">DSA</span><span class="tl-tag">MySQL</span><span class="tl-tag">Networking</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ CONTACT (Feature 3: Dual Tabs - WhatsApp & EmailJS)[cite: 1] ═══ -->
+    <!-- ═══ CONTACT (Feature 3: Dual Tabs - WhatsApp & EmailJS) ═══ -->
     <section id="contact">
         <div class="sec-inner">
             <div class="sec-header">
@@ -2464,7 +2550,7 @@
                     <h3>Contact Options</h3>
                     <p>Select your preferred communication channel below for instant chat or structured inquiries.</p>
 
-                    <!-- Fast Direct Tabs[cite: 1] -->
+                    <!-- Fast Direct Tabs -->
                     <div class="contact-channel-tabs">
                         <a href="https://wa.me/919585879853?text=Hi%20Sathish,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
                            target="_blank" rel="noopener" class="c-tab-btn tab-whatsapp">
@@ -2508,7 +2594,7 @@
                     </div>
                 </div>
 
-                <!-- Email Form Powered by EmailJS[cite: 1] -->
+                <!-- Email Form Powered by EmailJS -->
                 <div class="c-form-wrap">
                     <form id="cForm" novalidate autocomplete="off">
                         <div class="fg">
@@ -2557,18 +2643,14 @@
 ═══════════════════════════════════════ -->
     <script>
         /* ═══════════════════════════════════════
-           1. EMAILJS INTEGRATION[cite: 1]
+           1. EMAILJS INTEGRATION
         ═══════════════════════════════════════ */
-           const REQUIRED = {
-            EMAIL_USER          : 'sathish292003@gmail.com',
-            EMAIL_PASS          : 'nksy ftjp oqke csme',
+        const REQUIRED = {
             OWNER_EMAIL         : 'sathish292003@gmail.com',
             EMAILJS_SERVICE_ID  : 'service_zmrvdza',
-            EMAILJS_TEMPLATE_ID : 'template_xyz7890',
-            EMAILJS_PUBLIC_KEY  : '8_2vPnDD2MmpjPOIV',
-            EMAILJS_PRIVATE_KEY : '1HIW6BuyX8UEOOg8mCa4e'
+            EMAILJS_TEMPLATE_ID : 'template_xyz7890',   // replace with your real EmailJS template ID
+            EMAILJS_PUBLIC_KEY  : '8_2vPnDD2MmpjPOIV'   // public key is safe in browser code
         };
-
 
         (function initEmail() {
             if (window.emailjs && REQUIRED.EMAILJS_PUBLIC_KEY) {
@@ -2642,7 +2724,10 @@
                     message: msgInput.value.trim()
                 };
 
-                emailjs.send(REQUIRED.EMAILJS_SERVICE_ID, REQUIRED.EMAILJS_TEMPLATE_ID, templateParams)
+                const sendPromise = window.emailjs
+                    ? emailjs.send(REQUIRED.EMAILJS_SERVICE_ID, REQUIRED.EMAILJS_TEMPLATE_ID, templateParams)
+                    : Promise.reject(new Error('EmailJS SDK not loaded'));
+                sendPromise
                     .then(function(response) {
                         sBtn.classList.remove('loading');
                         sBtn.disabled = false;
@@ -2731,7 +2816,7 @@
             });
 
             if (save) {
-                localStorage.setItem('portfolio-accent-rgb', JSON.stringify({ r, g, b }));
+                try { localStorage.setItem('portfolio-accent-rgb', JSON.stringify({ r, g, b })); } catch (err) { /* storage unavailable */ }
             }
         }
 
@@ -2772,7 +2857,8 @@
         });
 
         // Restore saved RGB or default to iconic orange rgb(234, 88, 12)
-        const savedColor = localStorage.getItem('portfolio-accent-rgb');
+        let savedColor = null;
+        try { savedColor = localStorage.getItem('portfolio-accent-rgb'); } catch (err) { /* storage unavailable */ }
         if (savedColor) {
             try {
                 const { r, g, b } = JSON.parse(savedColor);
@@ -2868,10 +2954,11 @@
         const tEl = document.getElementById('typeText');
         function type() {
             const word = roles[ri];
-            tEl.textContent = del ? word.slice(0, ci--) : word.slice(0, ci++);
+            ci += del ? -1 : 1;
+            tEl.textContent = word.slice(0, ci);
             let speed = del ? 40 : 90;
-            if (!del && ci > word.length) { del = true; speed = 2000; }
-            if (del && ci < 0) { del = false; ri = (ri + 1) % roles.length; ci = 0; speed = 400; }
+            if (!del && ci === word.length) { del = true; speed = 2000; }
+            else if (del && ci === 0) { del = false; ri = (ri + 1) % roles.length; speed = 400; }
             setTimeout(type, speed);
         }
         type();
